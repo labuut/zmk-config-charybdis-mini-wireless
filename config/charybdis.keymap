@@ -24,6 +24,226 @@
 };
 
 / {
+    behaviors {
+        // // NOTE: example, "LR_WILDS_WITH 0 TAB". 0 is dummy argument
+        // // https://zmk.dev/docs/behaviors/hold-tap#using-different-behavior-types-with-hold-taps
+        // LR_WILDS_WITH: LR_WILDS_WITH {
+        //     compatible = "zmk,behavior-hold-tap";
+        //     label = "LR_WILDS_WITH";
+        //     #binding-cells = <2>;
+        //     flavor = "hold-preferred";
+        //     tapping-term-ms = <150>;
+        //     // bindings = <hold>, <tap>;
+        //     bindings = <&WILDS_RU>, <&kp>;
+        // };
+
+        // cmt - custom mod-tap
+        cmt: cmt {
+            compatible = "zmk,behavior-hold-tap";
+            label = "custom-mod-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            // bindings = <hold>, <tap>;
+            bindings = <&kp>, <&kp>;
+        };
+
+        EN_RU: EN_RU {
+            compatible = "zmk,behavior-mod-morph";
+            label = "EN_RU";
+            #binding-cells = <0>;
+            bindings = <&TO_MAIN_EN>, <&TO_MAIN_RU>;
+            mods = <(MOD_LCTL)>;
+        };
+        
+        DOT_RU: DOT_RU {
+            compatible = "zmk,behavior-mod-morph";
+            label = "DOT_RU";
+            #binding-cells = <0>;
+            bindings = <&mt DOT FSLH>, <&kp DOT>;
+            mods = <(MOD_LCTL|MOD_LALT|MOD_LGUI)>;
+            keep-mods = <(MOD_LCTL|MOD_LALT|MOD_LGUI)>;
+        };
+        
+        COMMA_RU: COMMA_RU {
+            compatible = "zmk,behavior-mod-morph";
+            label = "COMMA_RU";
+            #binding-cells = <0>;
+            bindings = <&kp LS(FSLH)>, <&kp COMMA>;
+            mods = <(MOD_LCTL|MOD_LALT|MOD_LGUI)>;
+            keep-mods = <(MOD_LCTL|MOD_LALT|MOD_LGUI)>;
+        };
+        
+        FSLH_BSLH: FSLH_BSLH {
+            compatible = "zmk,behavior-mod-morph";
+            label = "FSLH_BSLH";
+            #binding-cells = <0>;
+            bindings = <&kp FSLH>, <&kp BSLH>;
+            mods = <(MOD_LSFT)>;
+        };
+        
+        L_PAR_BRC_BKT: L_PAR_BRC_BKT {
+            compatible = "zmk,behavior-mod-morph";
+            label = "L_PAR_BRC_BKT";
+            #binding-cells = <0>;
+            bindings = <&kp LPAR>, <&cmt LBKT LBRC>;
+            mods = <(MOD_LSFT)>;
+        };
+        
+        R_PAR_BRC_BKT: R_PAR_BRC_BKT {
+            compatible = "zmk,behavior-mod-morph";
+            label = "R_PAR_BRC_BKT";
+            #binding-cells = <0>;
+            bindings = <&kp RPAR>, <&cmt RBKT RBRC>;
+            mods = <(MOD_LSFT)>;
+        };
+
+        // u_mt: u_mt {
+        //     compatible = "zmk,behavior-hold-tap";
+        //     label = "u_mt";
+        //     #binding-cells = <2>;
+        //     tapping_term_ms = <U_TAPPING_TERM>;
+        //     flavor = "tap-preferred";
+        //     bindings = <&kp>, <&kp>;
+        // };
+
+        // u_lt: u_lt {
+        //     compatible = "zmk,behavior-hold-tap";
+        //     label = "u_lt";
+        //     #binding-cells = <2>;
+        //     tapping_term_ms = <U_TAPPING_TERM>;
+        //     flavor = "tap-preferred";
+        //     bindings = <&mo>, <&kp>;
+        // };
+
+        // Shift_Enter: Shift_Enter {
+        //     compatible = "zmk,behavior-hold-tap";
+        //     label = "SHIFT_ENTER";
+        //     bindings = <&kp>, <&kp>;
+
+        //     #binding-cells = <2>;
+        //     hold-trigger-key-positions = <40>;
+        //     tapping-term-ms = <100>;
+        // };
+    };
+
+    macros {
+        bt_0: bt_profile_macro_0 {
+            label = "BT_0";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = 
+                <&out OUT_BLE>,
+                <&bt BT_SEL 0>;
+        };
+
+        bt_1: bt_profile_macro_1 {
+            label = "BT_1";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&out OUT_BLE>,
+                <&bt BT_SEL 1>;
+        };
+
+        bt_2: bt_profile_macro_2 {
+            label = "BT_2";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&out OUT_BLE>,
+                <&bt BT_SEL 2>;
+        };
+
+        bt_3: bt_profile_macro_3 {
+            label = "BT_3";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings =
+                <&out OUT_BLE>,
+                <&bt BT_SEL 3>;
+        };
+
+        LAYOUT_EN: LAYOUT_EN {
+            label = "ZM_LAYOUT_EN";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <30>;
+            bindings =
+                <&kp LA(LS(N8))>; // <&kp CAPS>;
+        };
+
+        LAYOUT_RU: LAYOUT_RU {
+            label = "ZM_LAYOUT_RU";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <30>;
+            bindings =
+                <&kp LA(LS(N9))>; // <&kp LS(CAPS)>;
+        };
+
+        TO_MAIN_EN: TO_MAIN_EN {
+            label = "ZM_TO_MAIN_EN";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <30>;
+            bindings =
+                <&LAYOUT_EN>,
+                <&to LR_MAIN_EN>;
+            };
+
+        TO_MAIN_RU: TO_MAIN_RU {
+            label = "ZM_TO_MAIN_RU";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <30>;
+            bindings =
+                <&LAYOUT_RU>,
+                <&to LR_MAIN_RU>;
+        };
+
+        WILDS_RU: WILDS_RU {
+            label = "ZM_WILDS_RU";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <30>;
+            bindings =
+                <&LAYOUT_EN>,
+                <&to LR_WILDS>,
+                <&macro_pause_for_release>,
+                <&to LR_MAIN_RU>,
+                <&LAYOUT_RU>;
+        };
+
+        NUMBER_RU: NUMBER_RU {
+            label = "ZM_NUMBER_RU";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <30>;
+            bindings =
+                <&LAYOUT_RU>,
+                <&kp LS(N3)>,
+                <&LAYOUT_EN>;
+        };
+
+        SRVC_TEST: SRVC_TEST {
+            label = "ZM_SRVC_TEST";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <10>;
+            tap-ms = <30>;
+            bindings =
+                <&kp S>,<&kp E>,<&kp R>,<&kp V>,<&kp I>,<&kp C>,<&kp E>;
+        };        
+    };
+
     combos {
         compatible = "zmk,combos";
 
@@ -107,36 +327,6 @@
         // CapsWord {
         //     bindings = <&caps_word>;
         //     key-positions = <17 18>;
-        // };
-    };
-
-    behaviors {
-        // u_mt: u_mt {
-        //     compatible = "zmk,behavior-hold-tap";
-        //     label = "u_mt";
-        //     #binding-cells = <2>;
-        //     tapping_term_ms = <U_TAPPING_TERM>;
-        //     flavor = "tap-preferred";
-        //     bindings = <&kp>, <&kp>;
-        // };
-
-        // u_lt: u_lt {
-        //     compatible = "zmk,behavior-hold-tap";
-        //     label = "u_lt";
-        //     #binding-cells = <2>;
-        //     tapping_term_ms = <U_TAPPING_TERM>;
-        //     flavor = "tap-preferred";
-        //     bindings = <&mo>, <&kp>;
-        // };
-
-        // Shift_Enter: Shift_Enter {
-        //     compatible = "zmk,behavior-hold-tap";
-        //     label = "SHIFT_ENTER";
-        //     bindings = <&kp>, <&kp>;
-
-        //     #binding-cells = <2>;
-        //     hold-trigger-key-positions = <40>;
-        //     tapping-term-ms = <100>;
         // };
     };
 
@@ -231,13 +421,13 @@
         LR_SERV {
             bindings = <
                 // row 1
-                &none   &none   &none   &none   &none   &bootloader            &bootloader   &none          &none          &none          &none   &bt BT_CLR
+                &to LR_MAIN_EN   &none   &none   &none   &none   &bootloader            &bootloader   &none   &none   &none   &none          &to LR_MAIN_EN
                 // row 2
-                &none   &none   &none   &none   &none   &sys_reset             &sys_reset    &none          &none          &none          &none   &none
+                &none            &none   &none   &none   &none   &sys_reset             &sys_reset    &none   &none   &none   &none          &none
                 // row 3
-                &none   &none   &none   &none   &none   &none                  &none         &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &none   &none 
+                &none            &none   &none   &none   &none   &SRVC_TEST             &SRVC_TEST    &bt_0   &bt_1   &bt_2   &out OUT_USB   &bt BT_CLR 
                 // thumb row
-                &trans   &trans   &trans                                       &trans   &trans
+                &trans   &trans   &trans                                                &trans   &trans
             >;
         };
 
